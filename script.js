@@ -1,11 +1,12 @@
+// --- Canvas y estrellas ---
 const canvas = document.getElementById('starsCanvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-// --- Estrellas ---
+// Estrellas fijas
 let stars = [];
-const numStars = 120; // un poco más de estrellas para dinamismo
+const numStars = 120;
 for (let i = 0; i < numStars; i++) {
   stars.push({
     x: Math.random() * canvas.width,
@@ -16,25 +17,26 @@ for (let i = 0; i < numStars; i++) {
   });
 }
 
-// --- Fugaces ---
+// Fugaces realistas
 let shootingStars = [];
+
 function createShootingStar() {
   shootingStars.push({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height/2,
-    length: Math.random() * 100 + 50,
-    speed: Math.random() * 5 + 3,
-    alpha: 1
+    length: Math.random() * 150 + 50,
+    speed: Math.random() * 8 + 5,
+    alpha: 1,
+    angle: Math.random() * 0.3 + 0.1
   });
 }
 
-// Crear una fugaz cada 3–5 segundos
 setInterval(createShootingStar, 3000);
 
 function drawStars() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Estrellas
+  // Dibujar estrellas fijas
   stars.forEach(s => {
     ctx.beginPath();
     ctx.arc(s.x, s.y, s.radius, 0, Math.PI*2);
@@ -44,19 +46,26 @@ function drawStars() {
     if (s.alpha <= 0 || s.alpha >= 1) s.delta *= -1;
   });
 
-  // Fugaces
+  // Dibujar fugaces
   shootingStars.forEach((s, index) => {
+    const x2 = s.x - s.length * Math.cos(s.angle);
+    const y2 = s.y + s.length * Math.sin(s.angle);
+    const gradient = ctx.createLinearGradient(s.x, s.y, x2, y2);
+    gradient.addColorStop(0, `rgba(255,255,255,${s.alpha})`);
+    gradient.addColorStop(1, `rgba(255,255,255,0)`);
+
     ctx.beginPath();
     ctx.moveTo(s.x, s.y);
-    ctx.lineTo(s.x - s.length, s.y + s.length);
-    ctx.strokeStyle = `rgba(255,255,255,${s.alpha})`;
+    ctx.lineTo(x2, y2);
+    ctx.strokeStyle = gradient;
     ctx.lineWidth = 2;
     ctx.stroke();
 
-    s.x += s.speed;
-    s.y += s.speed;
-    s.alpha -= 0.02;
-    if (s.alpha <= 0) shootingStars.splice(index,1);
+    s.x += s.speed * Math.cos(s.angle);
+    s.y += s.speed * Math.sin(s.angle);
+    s.alpha -= 0.01;
+
+    if (s.alpha <= 0 || s.x > canvas.width || s.y > canvas.height) shootingStars.splice(index,1);
   });
 
   requestAnimationFrame(drawStars);
@@ -104,3 +113,11 @@ function actualizarContador() {
 }
 setInterval(actualizarContador, 1000);
 actualizarContador();
+
+// --- Música ---
+const btnMusica = document.getElementById('btnMusica');
+btnMusica.addEventListener('click', () => {
+  const player = document.getElementById('ytplayer');
+  player.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}','*');
+  player.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}','*');
+});
