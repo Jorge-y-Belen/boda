@@ -57,3 +57,18 @@ body, html {
   color: #cce0ff;
   margin-top: 10px;
 }
+
+/* Botón música */
+#btnMusica {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  background-color: #1a1a2e;
+  color: #cce0ff;
+  border: 2px solid #cce0ff;
+  border-radius: 5px;
+}
+#btnMusica:hover {
+  background-color: #2a2a4e;
+}
