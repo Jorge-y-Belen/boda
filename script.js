@@ -35,11 +35,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // --- Estrellas parpadeantes ---
   const stars = [];
-  const NUM_STARS = 140;
+  const NUM_STARS = 400;
   for (let i = 0; i < NUM_STARS; i++) {
     stars.push({
       x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height * 0.33, // solo el tercio superior
+      y: Math.random() * canvas.height * 0.7, // solo el tercio superior
       size: Math.random() * 1.4 + 0.4,
       alpha: Math.random(),
       d: (Math.random() * 0.02 + 0.005) * (Math.random() < 0.5 ? 1 : -1)
@@ -60,7 +60,7 @@ window.addEventListener('DOMContentLoaded', () => {
     shootingStars.push({
       x, y, len, speed, angle,
       vx: Math.cos(angle) * speed,
-      vy: Math.sin(angle) * speed,
+      vy: -(Math.sin(angle) * speed),
       life: 0,
       maxLife: Math.floor((len / speed) * 1.2) + 20,
       alpha: 1
@@ -77,22 +77,25 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }, 1800);
 
+  // Cargar imagen de fondo (opcional)
+const bgImage = new Image();
+bgImage.src = "fondo_boda.jpg"; // o "img/fondo-boda.jpg" si la metes en una carpeta
+
+
   // --- Dibujado principal ---
   function draw() {
-    // --- Fondo con imagen ---
-    const bgImage = new Image();
-    bgImage.src = "fondo_boda.jpg"; // <-- pon aquí la ruta de tu foto
+    // fondo
+    //drawBackground();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    bgImage.onload = () => {
-    requestAnimationFrame(draw);
-    };
-    
-    function drawBackground() {
-      // Dibuja la imagen de fondo ajustada al tamaño del canvas
+    // imagen de fondo (si está cargada)
+    if (bgImage.complete) {
       ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
     }
 
-    
+    // efecto glow en estrellas
+    ctx.shadowBlur = 9;
+    ctx.shadowColor = "white";
 
     // estrellas
     for (let s of stars) {
@@ -102,10 +105,11 @@ window.addEventListener('DOMContentLoaded', () => {
       ctx.globalAlpha = s.alpha;
       ctx.fillStyle = '#ffffff';
       ctx.beginPath();
-      ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+      ctx.arc(s.x, s.y, s.size*1.2, 0, Math.PI * 2);
       ctx.fill();
 
     }
+    ctx.shadowBlur = 0;
     ctx.globalAlpha = 1;
 
     // fugaces: se dibujan con gradiente alineado con la velocidad
@@ -150,6 +154,10 @@ window.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(draw);
   }
 
+  bgImage.onload = () => {
+  draw(); // Solo empieza a dibujar cuando la imagen está cargada
+};
+
   requestAnimationFrame(draw);
 
   // --- Frases (científico-divertidas) ---
@@ -158,7 +166,6 @@ window.addEventListener('DOMContentLoaded', () => {
     "Eres mi constante universal.",
     "En el vasto cosmos, te encontré.",
     "Nuestro amor es una fuerza fundamental.",
-    "Eres el bosón de mi Higgs.",
     "Tu órbita encaja con la mía."
   ];
   let idx = 0;
@@ -212,4 +219,5 @@ window.addEventListener('DOMContentLoaded', () => {
     if (!ytPlayer) console.warn('#ytplayer (iframe) no encontrado en DOM');
   }
 
+  
 }); // DOMContentLoaded
