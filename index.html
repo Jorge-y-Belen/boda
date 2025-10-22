@@ -2,15 +2,16 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Jorge & Belén - Por fin la boda</title>
+  <title>Jorge & Belén</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<audio id="bg-music" autoplay loop>
-  <source src="Throne_Room.mp3" type="audio/mpeg">
-  Tu navegador no soporta audio HTML5.
-</audio>
+
 
 <body>
+  <audio id="bg-music" controls loop>
+    <source src="Throne_Room.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio HTML5.
+  </audio>
   <!-- Canvas de estrellas -->
   <canvas id="starsCanvas"></canvas>
 
@@ -20,16 +21,9 @@
     <h2 id="subtitulo">Por fin la boda</h2>
     <h3 id="mensaje">¡El universo conspira a nuestro favor!</h3>
     <div id="contador"></div>
-    <!-- <button id="btnMusica">Activar música</button> -->
+    <button id="btnMusica">Activar música</button>
   </div>
 
-  <!-- Embed de audio YouTube oculto -->
-  <!--<div id="youtube-audio" style="display:none;">
-    <iframe id="ytplayer" type="text/html" width="0" height="0"
-      src="https://www.youtube.com/embed/BjDaPOWdx6s?autoplay=1&loop=1&playlist=BjDaPOWdx6s&controls=0&showinfo=0&mute=1"
-      frameborder="0" allow="autoplay; encrypted-media">
-    </iframe>
-  </div> -->
 
   <script src="script.js"></script>
 </body>

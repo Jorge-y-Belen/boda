@@ -11,10 +11,11 @@ window.addEventListener('DOMContentLoaded', () => {
   }
   const ctx = canvas.getContext('2d');
 
+  const tituloEl = document.getElementById('titulo');
   const mensajeEl = document.getElementById('mensaje');
   const contadorEl = document.getElementById('contador');
   const btnMusica = document.getElementById('btnMusica');
-  const ytPlayer = document.getElementById('ytplayer');
+  const audioEl = document.getElementById('bg-music'); // <- referencia al <audio id="bg-music">
 
   // Ajuste tamaño canvas
   function resizeCanvas() {
@@ -166,7 +167,27 @@ bgImage.src = "fondo_boda.jpg"; // o "img/fondo-boda.jpg" si la metes en una car
     "Eres mi constante universal.",
     "En el vasto cosmos, te encontré.",
     "Nuestro amor es una fuerza fundamental.",
-    "Tu órbita encaja con la mía."
+    "Tu órbita encaja con la mía.",
+    "Nuestro amor brilla más que una supernova.",
+    "Amor que ni la expansión del universo puede separar.",
+    "Somos la colisión más bonita del cosmos.",
+    "Nuestra historia está escrita en el polvo de estrellas.",
+    "Dos estrellas fusionadas en un solo corazón.",
+    "Entre galaxias y nebulosas, te elegí a ti.",
+    "Nuestro campo gravitatorio emocional desafía toda física conocida.",
+    "Somos un sistema binario con periodo infinito.",
+    "Tonto quién lo lea.",
+    "La constante del amor permanece invariable en todo el universo.",
+    "Girando el uno en torno al otro, sin pérdida de energía.",
+    "Girando el uno en torno al otro, sin pérdida de orina.",
+    "Ni un agujero negro podría absorber tanta felicidad.",
+    "Nos alineamos como planetas en conjunción perfecta.",
+    "Superando el límite de Chandrasekhar del amor estable.",
+    "Dos cúmulos estelares entrelazados por destino.",
+    "He perdido.",
+    "Somos materia y antimateria que, por una vez, no se aniquilan.",
+    "Nuestro amor emite radiación invisible desde cualquier galaxia.",
+    "Orbitamos entre risas, cometas y copas de vino."
   ];
   let idx = 0;
   function showFrase() {
@@ -181,14 +202,39 @@ bgImage.src = "fondo_boda.jpg"; // o "img/fondo-boda.jpg" si la metes en una car
   showFrase();
   setInterval(showFrase, 7000);
 
+  // --- Títulos ---
+  const titulos_nuevos = [
+    "Jorge & Belén",
+    "Belén & Jorge",
+    "Señorita Coronado & Señorito Romero",
+    "Belén & Jorge",
+    "Rizo y Peinada",
+    "Jorge & Belén",
+    "Señora de Romero & Señor de Coronado",
+  ];
+  let idt = 0;
+  function showTitulo() {
+    if (!tituloEl) return;
+    tituloEl.style.opacity = 0;
+    setTimeout(() => {
+      tituloEl.textContent = titulos_nuevos[idt];
+      tituloEl.style.opacity = 1;
+      idt = (idt + 1) % titulos_nuevos.length;
+    }, 700);
+  }
+  showTitulo();
+  setInterval(showTitulo, 14000);
+
+
+
   // --- Contador ---
-  const target = new Date("2026-04-04T18:00:00").getTime();
+  const target = new Date("2026-04-04T13:59:59").getTime();
   function updateCounter() {
     if (!contadorEl) return;
     const now = Date.now();
     const d = target - now;
     if (d <= 0) {
-      contadorEl.textContent = "¡Hoy!";
+      contadorEl.textContent = "¿Qué haces mirando la página? Vístete, ¡que nos vamos de BODAAA!";
       return;
     }
     const dias = Math.floor(d / (1000 * 60 * 60 * 24));
@@ -200,23 +246,26 @@ bgImage.src = "fondo_boda.jpg"; // o "img/fondo-boda.jpg" si la metes en una car
   updateCounter();
   setInterval(updateCounter, 1000);
 
-  // --- Música: autoplay muted + botón para activar sonido ---
-  if (btnMusica && ytPlayer) {
-    btnMusica.addEventListener('click', () => {
-      // Pedimos al iframe que active el sonido (postMessage)
+  // --- Música: reproducir/pausar audio al pulsar el botón ---
+  if (btnMusica && audioEl) {
+    btnMusica.addEventListener('click', async () => {
       try {
-        ytPlayer.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-        ytPlayer.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-      } catch (e) {
-        console.warn('No se pudo mandar postMessage al iframe. Asegúrate de que el iframe tenga id="ytplayer" y la URL correcta de YouTube.');
+        if (audioEl.paused) {
+          // intenta reproducir; algunos navegadores devuelven una Promise
+          const p = audioEl.play();
+          if (p !== undefined) await p;
+          btnMusica.textContent = 'Pausar música';
+        } else {
+          audioEl.pause();
+          btnMusica.textContent = 'Activar música';
+        }
+      } catch (err) {
+        console.warn('No se pudo reproducir el audio:', err);
       }
-      // feedback visual
-      btnMusica.textContent = 'Música activada';
-      btnMusica.disabled = true;
-    }, { once: true });
+    });
   } else {
     if (!btnMusica) console.warn('#btnMusica no encontrado en DOM');
-    if (!ytPlayer) console.warn('#ytplayer (iframe) no encontrado en DOM');
+    if (!audioEl) console.warn('#bg-music no encontrado en DOM');
   }
 
   
