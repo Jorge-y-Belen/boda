@@ -16,6 +16,21 @@ window.addEventListener('DOMContentLoaded', () => {
   const contadorEl = document.getElementById('contador');
   const btnMusica = document.getElementById('btnMusica');
   const audioEl = document.getElementById('bg-music'); // <- referencia al <audio id="bg-music">
+  const btnLoc = document.getElementById('btnLoc'); // botón para ir a localizacion.html
+  const btnHome = document.getElementById('btnHome'); // botón para ir a index.html
+
+  // navegación: Inicio y Localización
+  if (btnHome) {
+    btnHome.addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+  }
+
+  if (btnLoc) {
+     btnLoc.addEventListener('click', () => {
+       window.location.href = 'localizacion.html';
+     });
+   }
 
   // Ajuste tamaño canvas
   function resizeCanvas() {

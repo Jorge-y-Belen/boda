@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Localización — Jorge & Belén</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* asegurar que el mapa esté por encima del canvas y sea responsivo */
+    .map-wrapper{
+      position: relative;
+      z-index: 5;
+      width: 90%;
+      max-width: 900px;
+      height: 60vh;
+      margin: 10vh auto 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+    .map-wrapper iframe{
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+    /* enlace debajo del mapa */
+    .map-link{
+      display:block;
+      text-align:center;
+      margin: 12px auto;
+      color:#fff;
+      text-decoration:underline;
+      z-index:6;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-left-container">
+    <button id="btnHome" class="top-left">Inicio</button>
+    <button id="btnLoc" class="top-left">Localización</button>
+  </div>
+
+  <canvas id="starsCanvas"></canvas>
+
+  <!-- Mapa embebido: reemplaza LAT,LNG por coordenadas o usa la URL de embed de Google Maps -->
+  <div class="map-wrapper" aria-label="Mapa de localización">
+    <iframe
+      loading="lazy"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.137345086003!2d-4.639667724225886!3d36.581234380012354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd72fbbe1e8b29fd%3A0xecaa8ac588589c4c!2sHotel%20ILUNION%20Hacienda%20de%20Mijas!5e1!3m2!1ses!2ses!4v1761329574003!5m2!1ses!2ses"
+      referrerpolicy="no-referrer-when-downgrade"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <!-- enlace para abrir en Google Maps -->
+  <a class="map-link" href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.137345086003!2d-4.639667724225886!3d36.581234380012354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd72fbbe1e8b29fd%3A0xecaa8ac588589c4c!2sHotel%20ILUNION%20Hacienda%20de%20Mijas!5e1!3m2!1ses!2ses!4v1761329574003!5m2!1ses!2ses" target="_blank" rel="noopener">Abrir en Google Maps</a>
+
+  <script src="script.js"></script>
+</body>
+</html>

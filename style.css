@@ -72,3 +72,67 @@ body, html {
 #btnMusica:hover {
   background-color: #2a2a4e;
 }
+
+/* botón superior izquierdo */
+.top-left{
+  position: relative; /* NO fixed: evitar solapamiento */
+  background: transparent; /* fondo transparente para ver el canvas */
+  color: #ffffff;          /* texto en blanco */
+  border: 1px solid rgba(255,255,255,0.18);
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+  backdrop-filter: blur(4px); /* opcional: suaviza el fondo detrás del botón */
+}
+
+.top-left:hover{
+  background: rgba(255,255,255,0.06); /* ligero resalte al pasar el ratón */
+}
+
+/* contenedor superior izquierdo para varios botones */
+.top-left-container{
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 999;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  pointer-events: auto;
+}
+
+/* botón individual: dejar que el contenedor lo posicione */
+.top-left{
+  position: relative; /* NO fixed: evitar solapamiento */
+  background: transparent; /* fondo transparente para ver el canvas */
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,0.18);
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+  backdrop-filter: blur(4px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top-left:hover{
+  background: rgba(255,255,255,0.06);
+}
+
+/* estilo para la página de localización: texto centrado */
+#localizacionText{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 3.6rem;
+  text-align: center;
+  z-index: 10;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
