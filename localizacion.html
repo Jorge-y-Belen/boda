@@ -5,17 +5,44 @@
   <title>Localización — Jorge & Belén</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* asegurar que el mapa esté por encima del canvas y sea responsivo */
-    .map-wrapper{
+    /* Layout principal */
+    .page-inner {
       position: relative;
       z-index: 5;
-      width: 90%;
-      max-width: 900px;
-      height: 60vh;
-      margin: 10vh auto 0;
+      width: 100%;
+      max-width: 1200px;
+      margin: 12vh auto 0; /* bajarlo más */
+      padding: 0 3%;
+      box-sizing: border-box;
+      color: #fff;
+    }
+
+    .location-title {
+      font-size: 2.4rem;
+      margin-bottom: 18px;
+      text-align: left;
+      color: #ffdca3;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+
+    .location-row {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+
+    /* Mapa: más pequeño y alineado a la izquierda */
+    .map-wrapper{
+      flex: 0 0 44%; /* ocupa aprox 44% del ancho */
+      min-width: 260px;
+      max-width: 520px;
+      height: 36vh;
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      background: rgba(0,0,0,0.25);
     }
     .map-wrapper iframe{
       width: 100%;
@@ -23,37 +50,105 @@
       border: 0;
       display: block;
     }
-    /* enlace debajo del mapa */
+
+    /* Panel de información a la derecha */
+    .info-panel{
+      flex: 1 1 44%;
+      min-width: 260px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .info-panel h2{
+      margin: 0;
+      font-size: 1.6rem;
+      color: #fff;
+    }
+
+    .info-box{
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 16px;
+      border-radius: 10px;
+      line-height: 1.5;
+      color: #f3f3f3;
+      font-size: 0.98rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+      white-space: pre-wrap;
+    }
+
+    /* color más claro para el enlace de correo dentro del cuadro informativo */
+    .info-box a[href^="mailto:"]{
+      color: #ffdca3;
+      text-decoration: underline;
+    }
+    
     .map-link{
-      display:block;
-      text-align:center;
-      margin: 12px auto;
-      color:#fff;
-      text-decoration:underline;
-      z-index:6;
+      color: #ffdca3;
+      text-decoration: underline;
+      font-size: 0.95rem;
+      margin-top: 6px;
+    }
+
+    /* Responsive: apilar en móviles */
+    @media (max-width: 820px){
+      .location-row{ flex-direction: column; }
+      .map-wrapper, .info-panel{ flex: 1 1 100%; max-width: none; }
+      .page-inner{ margin-top: 8vh; } /* ajustar también en móvil */
+      .location-title{ text-align: center; }
     }
   </style>
 </head>
 <body>
   <div class="top-left-container">
     <button id="btnHome" class="top-left">Inicio</button>
-    <button id="btnLoc" class="top-left">Localización</button>
+    <button id="btnLoc" class="top-left">Duerme en el hotel</button>
   </div>
 
   <canvas id="starsCanvas"></canvas>
 
-  <!-- Mapa embebido: reemplaza LAT,LNG por coordenadas o usa la URL de embed de Google Maps -->
-  <div class="map-wrapper" aria-label="Mapa de localización">
-    <iframe
-      loading="lazy"
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.137345086003!2d-4.639667724225886!3d36.581234380012354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd72fbbe1e8b29fd%3A0xecaa8ac588589c4c!2sHotel%20ILUNION%20Hacienda%20de%20Mijas!5e1!3m2!1ses!2ses!4v1761329574003!5m2!1ses!2ses"
-      referrerpolicy="no-referrer-when-downgrade"
-      allowfullscreen>
-    </iframe>
-  </div>
+  <div class="page-inner" role="main" aria-labelledby="locTitle">
+    <h1 id="locTitle" class="location-title">El hotel del bodorrio</h1>
 
-  <!-- enlace para abrir en Google Maps -->
-  <a class="map-link" href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.137345086003!2d-4.639667724225886!3d36.581234380012354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd72fbbe1e8b29fd%3A0xecaa8ac588589c4c!2sHotel%20ILUNION%20Hacienda%20de%20Mijas!5e1!3m2!1ses!2ses!4v1761329574003!5m2!1ses!2ses" target="_blank" rel="noopener">Abrir en Google Maps</a>
+    <div class="location-row">
+      <!-- Mapa alineado a la izquierda -->
+      <div class="map-wrapper" aria-label="Mapa de localización">
+        <iframe
+          loading="lazy"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.137345086003!2d-4.639667724225886!3d36.581234380012354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd72fbbe1e8b29fd%3A0xecaa8ac588589c4c!2sHotel%20ILUNION%20Hacienda%20de%20Mijas!5e1!3m2!1ses!2ses!4v1761329574003!5m2!1ses!2ses"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <!-- Panel informativo a la derecha -->
+      <aside class="info-panel" aria-label="Información de alojamiento">
+        <h2>¿Te quieres quedar en el hotel?</h2>
+
+        <div class="info-box" role="region" aria-live="polite">
+El hotel hace 10% de descuento a invitados.
+Además tenéis cancelación gratuita hasta 72h antes.
+Se paga a la llegada directamente en el hotel aunque hace falta dar los datos de una tarjeta bancaria solo como garantía.
+La habitación doble está en 91€ y la doble con desayuno en 113€.
+La habitación de tres adultos en 100€ y 125€ con desayuno.
+
+Para obtener el descuento hay que reservar la habitación enviando un correo a Isabel con email:
+<a href="mailto:imarmolejo@ilunionhotels.com">imarmolejo@ilunionhotels.com</a>
+
+En el correo debéis indicar:
+• fecha y poner que vais a la boda de Belén y Jorge.
+• tipo de habitación que queréis
+• Si queréis desayuno o no.
+• El nombre completo de al menos uno de los huéspedes.
+• Tarjeta bancaria indicando el número de tarjeta, la fecha de caducidad y el nombre al que esté puesto la tarjeta.
+        </div>
+
+        <a class="map-link" href="https://www.google.com/maps/place/Hotel+ILUNION+Hacienda+de+Mijas/@36.5812344,-4.6396677,15z/" target="_blank" rel="noopener">Abrir en Google Maps</a>
+      </aside>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

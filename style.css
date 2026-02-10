@@ -94,26 +94,29 @@ body, html {
 /* contenedor superior izquierdo para varios botones */
 .top-left-container{
   position: fixed;
-  top: 12px;
-  left: 12px;
+  top: 14px;
+  left: 14px;
   z-index: 999;
   display: flex;
-  gap: 8px;
+  gap: 10px;
   align-items: center;
   pointer-events: auto;
 }
 
-/* botón individual: dejar que el contenedor lo posicione */
+/* botón individual: tamaño aumentado */
 .top-left{
-  position: relative; /* NO fixed: evitar solapamiento */
-  background: transparent; /* fondo transparente para ver el canvas */
+  position: relative;
+  background: transparent;
   color: #ffffff;
   border: 1px solid rgba(255,255,255,0.18);
-  padding: 8px 12px;
-  border-radius: 6px;
+  padding: 12px 18px;        /* aumentado */
+  border-radius: 8px;       /* un poco más redondeado */
   cursor: pointer;
-  font-weight: 600;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+  font-weight: 700;
+  font-size: 1.05rem;       /* texto más grande */
+  min-width: 140px;         /* ancho mínimo para mayor presencia */
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.28);
   backdrop-filter: blur(4px);
   display: inline-flex;
   align-items: center;
@@ -122,6 +125,12 @@ body, html {
 
 .top-left:hover{
   background: rgba(255,255,255,0.06);
+}
+
+/* Responsive: reducir un poco en pantallas pequeñas */
+@media (max-width: 480px) {
+  .top-left{ padding: 10px 12px; font-size: 0.95rem; min-width: 110px; }
+  .top-left-container{ top: 10px; left: 10px; gap: 6px; }
 }
 
 /* estilo para la página de localización: texto centrado */
