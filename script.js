@@ -15,9 +15,10 @@ window.addEventListener('DOMContentLoaded', () => {
   const mensajeEl = document.getElementById('mensaje');
   const contadorEl = document.getElementById('contador');
   const btnMusica = document.getElementById('btnMusica');
-  const audioEl = document.getElementById('bg-music'); // <- referencia al <audio id="bg-music">
-  const btnLoc = document.getElementById('btnLoc'); // botón para ir a localizacion.html
-  const btnHome = document.getElementById('btnHome'); // botón para ir a index.html
+  const audioEl = document.getElementById('bg-music');
+  const btnLoc = document.getElementById('btnLoc');
+  const btnHome = document.getElementById('btnHome');
+  const btnCer = document.getElementById('btnCer'); // botón para ir a ceremonia.html
 
   // navegación: Inicio y Localización
   if (btnHome) {
@@ -27,10 +28,16 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   if (btnLoc) {
-     btnLoc.addEventListener('click', () => {
-       window.location.href = 'localizacion.html';
-     });
-   }
+    btnLoc.addEventListener('click', () => {
+      window.location.href = 'localizacion.html';
+    });
+  }
+
+  if (btnCer) {
+    btnCer.addEventListener('click', () => {
+      window.location.href = 'ceremonia.html';
+    });
+  }
 
   // Ajuste tamaño canvas
   function resizeCanvas() {

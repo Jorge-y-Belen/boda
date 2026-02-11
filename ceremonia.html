@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ceremonia — Jorge & Belén</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-inner {
+      position: relative;
+      z-index: 5;
+      width: 100%;
+      max-width: 1200px;
+      margin: 12vh auto 0;
+      padding: 0 3%;
+      color: #fff;
+      box-sizing: border-box;
+    }
+    .location-title {
+      font-size: 2.2rem;
+      color: #ffdca3;
+      margin-bottom: 18px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+      text-align: center;
+    }
+
+    /* Layout: texto - imagen centrada - texto */
+    .cer-row {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: nowrap;
+    }
+
+    .desc-box {
+      flex: 1 1 28%;
+      min-width: 220px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 18px;
+      border-radius: 10px;
+      color: #f3f3f3;
+      line-height: 1.5;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+    }
+    .desc-box h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.05rem;
+      color: #ffdca3;
+    }
+
+    .cer-image {
+      flex: 0 0 auto;
+      max-width: 520px; /* agrandada */
+      width: 38%;
+      min-width: 300px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.55);
+      overflow: hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(0,0,0,0.12);
+    }
+    .cer-image img {
+      display:block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    @media (max-width: 980px) {
+      .cer-row {
+        flex-direction: column;
+        gap: 18px;
+        align-items: center;
+      }
+      .cer-image {
+        width: 80%;
+        max-width: 520px;
+        min-width: 220px;
+      }
+      .desc-box {
+        flex: 1 1 100%;
+        width: 90%;
+      }
+      .location-title{ margin-bottom: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-left-container">
+    <button id="btnHome" class="top-left">Inicio</button>
+    <button id="btnLoc" class="top-left">Duerme en el hotel</button>
+    <button id="btnCer" class="top-left">Ceremonia</button>
+  </div>
+
+  <canvas id="starsCanvas"></canvas>
+
+  <main class="page-inner" role="main" aria-labelledby="cerTitle">
+    <h1 id="cerTitle" class="location-title">Maestras de ceremonia</h1>
+
+    <div class="cer-row" role="region" aria-label="Maestras de ceremonia">
+      <div class="desc-box" id="marioli">
+        <h3>Marioli – Hermana del novio</h3>
+        <p>Hermana mayor, protectora oficial del novio desde la infancia y actual Maestra de Ceremonia en prácticas avanzadas.
+        Entre partidos de balonmano, clases de aquagym y su jornada intensiva de funcionaria (de 9 a 2, como Dios manda), ha sacado tiempo para aceptar la misión más importante: mantener el orden, controlar los tiempos, ser la primera en soltar lágrimas, y evitar que el novio improvise discursos peligrosos.</p>
+        <p>Si algo sale perfecto hoy… es porque Marioli ya lo había previsto.</p>
+      </div>
+
+      <div class="cer-image" aria-hidden="false">
+        <img src="marioli_lucia.png" alt="Marioli y Lucía, maestras de ceremonia">
+      </div>
+
+      <div class="desc-box" id="lucia">
+        <h3>Lucía – Hermana de la novia</h3>
+        <p>Hermana pequeña, responsable cuando toca… y payasa profesional el resto del tiempo, perfecta para Maestra de Ceremonias.
+        Ex profe de guardería (entrenada para el caos), experta en juegos de mesa, posiblemente le gane a la otra en soltar la primera lágrima, y maquilladora oficial de la novia, lo que la convierte automáticamente en persona de máxima confianza.</p>
+        <p>Junto a Marioli, se encargará de que la ceremonia fluya, las lecturas entren a tiempo y nadie se escape sin emocionarse.
+        Son las únicas capaces de dirigir este evento sin necesidad de GPS… ni de tranquilizantes.</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
